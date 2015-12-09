@@ -1,0 +1,14 @@
+{
+  "urls": [
+    {
+      "url": "",
+      "downloader": "html",
+      "spider": "douban"
+    },
+    {
+      "url": "",
+      "downloader": "",
+      "spider": ""
+    }
+  ]
+}
