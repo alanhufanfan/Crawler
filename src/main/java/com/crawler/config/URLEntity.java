@@ -6,7 +6,7 @@ import com.crawler.enums.DownloaderType;
  * description
  * Created by Sun on 2015/12/9.
  */
-public class ConfigEntity {
+public class URLEntity {
 
     private String url;
     private String downloaderTypeStr;
@@ -15,13 +15,18 @@ public class ConfigEntity {
     private String spiderType;
 
     //todo 枚举一下
-    ConfigEntity(String url, String spiderTypeStr){
+    public URLEntity(String url, String spiderTypeStr){
         this.url = url;
         this.url = url;
         this.url = url;
     }
 
-    ConfigEntity(String url, String spiderTypeStr,String downloaderTypeStr ){
+    public URLEntity(String url, DownloaderType downloaderType){
+        this.url = url;
+        this.downloaderType = downloaderType;
+    }
+
+    public URLEntity(String url, String spiderTypeStr, String downloaderTypeStr){
 
     }
 

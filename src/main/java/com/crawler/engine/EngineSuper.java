@@ -1,6 +1,6 @@
 package com.crawler.engine;
 
-import com.crawler.config.ConfigEntity;
+import com.crawler.config.URLEntity;
 import com.crawler.downloader.Downloader;
 import com.crawler.downloader.HTMLDownloader;
 import com.crawler.downloader.ImageDownloader;
@@ -10,6 +10,7 @@ import com.crawler.enums.DownloaderType;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * description
@@ -17,33 +18,34 @@ import java.util.Map;
  */
 public class EngineSuper {
 
-    //url=¡·classType
-    private static HashSet<ConfigEntity> spiders = new HashSet<ConfigEntity>();
+    //url=ã€‹classType
+    private static HashSet<URLEntity> urls = new HashSet<URLEntity>();
 
     public static void main(String[] args) {
         System.out.println("start---------->");
     }
 
     public EngineSuper() {
-        //³õÊ¼»¯ÉèÖÃ £¬spiderÉèÖÃ£¬dbÉèÖÃ
-//        this.spiders.put("http://www.baidu.com", "com.crawler.spiders.Baidu");
-//        ¶ÁÈ¡ÅäÖÃ
+        this.urls.add(new URLEntity("http://moment.douban.com/post/117638/?douban_rec=1",DownloaderType.HTML));
+        //è¯»å–é…ç½®
+
+        //å¯åŠ¨çº¿ç¨‹æ± 
+
+        //åˆå§‹åŒ–é˜Ÿåˆ—
     }
 
-    //todo  ¶¨Ê±
     public void start() {
-        Iterator iterator = this.spiders.iterator();
-        //Æô¶¯¶à¸öÏß³Ì
+        //å¯åŠ¨çº¿ç¨‹æ± ï¼Œç›‘å¬é˜Ÿåˆ—
+        Iterator iterator = this.urls.iterator();
         while (iterator.hasNext()) {
-            final Map.Entry entry = (Map.Entry) iterator.next();
+            final URLEntity url = (URLEntity)iterator.next();
             new Thread(new Runnable() {
                 public void run() {
-                    ConfigEntity url = (ConfigEntity) entry.getValue();
                     DownloaderType downloaderType = url.getDownloaderType();
                     Downloader downloader;
                     switch (downloaderType) {
                         case HTML:
-                            downloader = new HTMLDownloader("");
+                            downloader = new HTMLDownloader(url);
                             break;
                         case IMAGE:
                             downloader = new ImageDownloader();
@@ -52,25 +54,26 @@ public class EngineSuper {
                             downloader = new VideoDownloader();
                             break;
                         default:
-                            downloader = new HTMLDownloader("");
+                            downloader = new HTMLDownloader(url);
                     }
                     downloader.down();
-
-                    if (downloaderType == DownloaderType.HTML) {
-                        //¸ù¾İurlµÄÅäÖÃ£¬Óëspider µÄ×¢½âÀ´Ê¹ÓÃ¶ÔÓ¦µÄparser
-                    }
                 }
             }).start();
         }
     }
 
-    //¶ÁÅäÖÃ£¬È»ºó×¥È¡£¬Õâ¸ö¹ı³Ì¶¼ÊÇ½øĞĞhttpÇëÇó
+    /**
+     * todo
+     * è§£å†³ä¸€ä¸ªæ®µè½é‡Œé¢æœ‰å›¾ç‰‡ï¼Œä½†æ˜¯å›¾ç‰‡ä¸‹è½½å¤±è´¥çš„é—®é¢˜ã€‚
+     * è¿™æ˜¯ä¸€ä¸ªäº‹åŠ¡çš„é—®é¢˜ï¼Œè§£å†³ä¸€è‡´æ€§é—®é¢˜
+     */
+    private void play(){
+        // DOWN  SAVE     DOWNLOADER
 
 
-    //×¥È¡Ö®ºó½øĞĞ´¦Àí  £¬²»Í¬µÄurlÊ¹ÓÃ²»Í¬µÄspider´¦Àí
+        //PARSE  CALLBACK(SAVE)  NULL  PARSER   push queue
 
 
-    //Èë¿â
-
-
+        //SAVE   DB
+    }
 }

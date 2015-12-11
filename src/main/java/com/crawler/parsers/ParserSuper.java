@@ -1,4 +1,4 @@
-package com.crawler.spiders;
+package com.crawler.parsers;
 
 /**
  * description
